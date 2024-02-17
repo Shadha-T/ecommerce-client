@@ -4,14 +4,18 @@ import InputField from "../../components/Forms/InputField/InputField";
 import { EditProduct, addProducts, deleteProduct, fetchProducts } from "../../api/admin";
 import { errorToast } from "../../components/Toast";
 import axios from "axios";
+import {Avatar,Button} from "@mui/material"
+
 
 
 function Product() {
   const [formFiled, setFormField] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [isEdit, setIsEdit] = useState({status:false,id:null});
-  const [isEditFormData, setIsEditFormData] = useState({name:null,details:null,price:null});
+  const [isEditFormData, setIsEditFormData] = useState({profile:null,name:null,details:null,price:null});
   const [products,setProducts] = useState([])
+  const [imagePreview,setImagePreview]=useState(null)
+  const [Image,setImage]= useState(null)
 
   const formdatas = [
     {
@@ -47,8 +51,15 @@ function Product() {
   const handleSubmit = async(e) => {
     e.preventDefault();
 
+
     // callapi for add product
-    const response = await addProducts(formFiled)
+    const formdata = new FormData()
+    formdata.append("name",formFiled.name)
+    formdata.append("details",formFiled.details)
+    formdata.append("price",formFiled.price)
+    formdata.append("profile",Image)
+    const response = await addProducts(formdata)
+
 
     console.log(response,'response');
 
@@ -57,6 +68,9 @@ function Product() {
 
     console.log(formFiled,'from');
   };
+
+ 
+
 
   const headings = {
     headingOne: "Profile",
@@ -124,15 +138,27 @@ function Product() {
 
     await axios.put(`http://localhost:3000/api/products/${isEdit.id}`,isEditFormData)
     setRefresh(!refresh)
+    setIsEdit({status:false,id:null})
+    //edit refresh aakan into cart
   }
 
   const handleEditChange = (e)=>{
     setIsEditFormData({[e.target.name]:e.target.value})
   }
+  const handlechangeimage =(e)=>{
+    console.log("llll");
+    console.log(e.target.files[0],'ee');
+    setImage(e.target.files[0])
+    setImagePreview(URL.createObjectURL(e.target.files[0]))
+
+  }
 
 
 return (
     <div>
+       <Avatar alt='loading' src={imagePreview} style={{width:"100px",height:"100px"}}></Avatar>
+       <input type='file' onChange={handlechangeimage} accept='image/*'/>
+       <Button onClick={handleSubmit} variant="contained" style={{width:"200px",marginLeft:"5px"}}>submit</Button>
       <div>
         <h1 className="text-white">Product</h1>
         <table className=" w-[80%] m-auto">
@@ -147,6 +173,7 @@ return (
         {products.map(
           (
             {
+              profile,
               name,
               details,
               price,
@@ -156,6 +183,7 @@ return (
           ) => {
             return (
               <tr key={index} className="text-center">
+                <img style={{width:"100px",height:"100px",borderRadius:"50%"}} src={`http://localhost:3000/${profile}`}/>
 
                 <td className="text-white">{name}</td>
                 <td className="text-white">{details}</td>

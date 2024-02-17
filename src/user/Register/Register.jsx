@@ -2,21 +2,18 @@ import { useState } from "react";
 import InputField from "../../components/Forms/InputField/InputField";
 import { NavLink } from "react-router-dom";
 import { errorToast, successToast } from "../../components/Toast";
-import { adminLogin } from "../../api/admin";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { isAdminLogin } from "../../redux/admin/reducer/authReducer";
+import { userRegister } from "../../api/user";
 
-
-function Login() {
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
+function Register() {
   const [formFiled, setFormField] = useState({});
 
   const formdatas = [
+    {
+      type: "text",
+      placeholder: "lName",
+      className: "",
+      name: "lname",
+    },
     {
       type: "email",
       placeholder: "E-Mail",
@@ -29,6 +26,12 @@ function Login() {
       className: "",
       name: "password",
     },
+    {
+      type: "text",
+      placeholder: "fname.",
+      className: "",
+      name: "fname",
+    },
   ];
 
   const onChangeValues = (e) => {
@@ -36,38 +39,27 @@ function Login() {
     setFormField({ ...formFiled, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log(formFiled);
     try {
-      const response = await adminLogin(formFiled)
- 
-       successToast(response.data.message)
+     const response = await userRegister(formFiled)
 
-       console.log(response.data.token);
-
-       if(!response.data.token){
-        return errorToast('token is not provided')
-       }
-
-       localStorage.setItem("token",response.data.token)
-       
-       dispatch(isAdminLogin(response.data))
-         navigate('/admin')
-     } catch (error) {
-       errorToast(error.response.data.message,'error')
-     }
+      successToast(response.data.message)
+    } catch (error) {
+      errorToast(error.response.data.message,'error')
+    }
   };
 
+  
 
   return (
     <div className="flex justify-center items-center flex-col h-screen">
       <form
         onSubmit={handleSubmit}
         action=""
-        className="w-[40%] rounded-md bg-black h-[400px] flex justify-center flex-col gap-5 items-center"
+        className="w-[50%] rounded-md bg-black h-[500px] flex justify-center flex-col gap-5 items-center "
       >
-        <h2 className="text-white text-xl">Login</h2>
+        <h2 className="text-white text-xl">Register</h2>
         {formdatas.map(({ className, placeholder, type, name }, index) => (
           <InputField
             onChange={onChangeValues}
@@ -80,14 +72,13 @@ function Login() {
         ))}
         <input
           type="submit"
-          className="text-white border-solid border-2 border-cyan-600 w-[4  0%]"
+          className="text-white border-solid border-2 border-indigo-600 w-[4  0%]"
         />
-        <NavLink to={'/admin-register'}>
-        <p className="text-white text-xs underline "> Signup  </p>
-        </NavLink>
+      <NavLink to={"user-login"}>
+        <p className="text-white text-xs underline ">login </p>
+      </NavLink>
       </form>
     </div>
   );
 }
-
-export default Login;
+export default Register;

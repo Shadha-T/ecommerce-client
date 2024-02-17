@@ -9,6 +9,11 @@ import Payment from "./admin/Payment/Payment";
 import Home from "./user/Home/Home";
 import User from "./user/User";
 import Protected from "./admin/Protected/Protected";
+import Login from "./user/Login/Login";
+import Register from "./user/Register/Register";
+import Details from "./user/Details/Details";
+import Placeorder from "./user/placeorder/Placeorder";
+
 
 
 function App() {
@@ -17,6 +22,26 @@ function App() {
       path: "/",
       element: <Home/>,
     },
+    {
+      path:"/details/:id",
+      element:<Details/>
+    },
+    {
+      path: "user-login",
+      element: <Login/>,
+    },
+    {
+      path: "user-register",
+      element: <Register />,
+    },
+{
+  path: "/place-order",
+  element: <Placeorder />,
+},
+
+
+
+
     {
       path: "/admin",
       element: <Protected/>,
@@ -57,7 +82,11 @@ function App() {
       path: "admin-login",
       element: <AdminLogin />,
     },
+
+    
   ]);
+
+
 
   return <RouterProvider router={router} />;
 }

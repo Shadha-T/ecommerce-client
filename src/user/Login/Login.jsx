@@ -6,6 +6,7 @@ import { adminLogin } from "../../api/admin";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { isAdminLogin } from "../../redux/admin/reducer/authReducer";
+import { userLogin } from "../../api/user";
 
 
 function Login() {
@@ -40,7 +41,7 @@ function Login() {
     e.preventDefault();
     console.log(formFiled);
     try {
-      const response = await adminLogin(formFiled)
+      const response = await userLogin(formFiled)
  
        successToast(response.data.message)
 
@@ -53,7 +54,7 @@ function Login() {
        localStorage.setItem("token",response.data.token)
        
        dispatch(isAdminLogin(response.data))
-         navigate('/admin')
+         navigate('/')
      } catch (error) {
        errorToast(error.response.data.message,'error')
      }
@@ -82,7 +83,7 @@ function Login() {
           type="submit"
           className="text-white border-solid border-2 border-cyan-600 w-[4  0%]"
         />
-        <NavLink to={'/admin-register'}>
+        <NavLink to={'/user-register'}>
         <p className="text-white text-xs underline "> Signup  </p>
         </NavLink>
       </form>
