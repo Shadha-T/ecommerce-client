@@ -13,6 +13,9 @@ import Login from "./user/Login/Login";
 import Register from "./user/Register/Register";
 import Details from "./user/Details/Details";
 import Placeorder from "./user/placeorder/Placeorder";
+import Order from "./user/orders/Orders";
+
+
 
 
 
@@ -38,6 +41,11 @@ function App() {
   path: "/place-order",
   element: <Placeorder />,
 },
+{
+  path: "/orders",
+  element: <Order/>
+},
+
 
 
 

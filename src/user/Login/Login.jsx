@@ -52,8 +52,10 @@ function Login() {
        }
 
        localStorage.setItem("token",response.data.token)
+       localStorage.setItem("users",JSON.stringify(response.data.users))
+      //  console.log("users",JSON.stringify(response.data.users));
        
-       dispatch(isAdminLogin(response.data))
+      //  dispatch(isAdminLogin(response.data))
          navigate('/')
      } catch (error) {
        errorToast(error.response.data.message,'error')
