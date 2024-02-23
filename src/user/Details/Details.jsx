@@ -6,6 +6,7 @@ const value=useLocation()
 
   return (
     <div className=''>
+      <div className='container'>
       <h1 className='text-4xl text-center'>PRODUCTS DETAILS</h1>
       <img style={{width:"100px",height:"100px",borderRadius:"50%", margin:"auto"}} src={`http://localhost:3000/${value.state.products.profile}`}/>
       <p>{value.state.products.name}</p>
@@ -18,6 +19,7 @@ const value=useLocation()
     <button >placeorder</button>
   </div>
 </Link>
+    </div>
     </div>
   )
 }

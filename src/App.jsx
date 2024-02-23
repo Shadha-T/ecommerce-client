@@ -14,6 +14,9 @@ import Register from "./user/Register/Register";
 import Details from "./user/Details/Details";
 import Placeorder from "./user/placeorder/Placeorder";
 import Order from "./user/orders/Orders";
+import Profile from "./user/profile/Profile";
+import Transaction from "./user/transaction/Transaction";
+import UserCart from "./user/cart/UserCart";
 
 
 
@@ -44,6 +47,18 @@ function App() {
 {
   path: "/orders",
   element: <Order/>
+},
+{
+  path: "/profile",
+  element: <Profile/>
+},
+{
+  path: "/cart",
+  element: <UserCart/>
+},
+{
+  path: "/transaction",
+  element: <Transaction/>
 },
 
 

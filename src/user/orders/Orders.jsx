@@ -23,19 +23,21 @@ export default function Orders() {
             orders.map((item) => {
                 return (
                     <div className="">
+                        <div className=' '>
                         <p>{item.fname}</p>
                         <p>{item.lname}</p>
                         <p>{item.products.map((item)=>{
                             return(
                                 <>
                                 <p>{item.name}</p>
-                            <img src={`http://localhost:3000/${item.profile}`} alt="" style={{height:"100px",width:"100px"}}/> 
+                            <img src={`http://localhost:3000/${item.profile}`} alt="" style={{height:"100px",width:"100px", borderRadius:"100px"}}/> 
                                 <p>{item.price}</p>
                                 
                                 </>
                             )
                         })}</p>
                         {/* {JSON.stringify(item)} */}
+                        </div>
                     </div>
                 )
             })
